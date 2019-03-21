@@ -3,7 +3,6 @@ package com.itcast.dao;
 import com.itcast.domain.Member;
 import com.itcast.domain.Orders;
 import com.itcast.domain.Product;
-import com.itcast.domain.Traveller;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.FetchType;
 
