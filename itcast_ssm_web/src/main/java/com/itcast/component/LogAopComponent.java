@@ -13,26 +13,39 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Date;
-
+/**
+ * @author 陈佳杰
+ * @version 1.0
+ * @date 2019/3/20
+ */
 @Component
 @Aspect
 public class LogAopComponent {
 
-    @Autowired
-    private HttpServletRequest request;
+    private final HttpServletRequest request;
+
+    private final SysLogService sysLogService;
+    /**
+     * 开始时间
+     */
+    private Date visitTime;
+    /**
+     * 访问的类
+     */
+    private Class clazz;
+    /**
+     * 访问的方法
+     */
+    private Method method;
 
     @Autowired
-    private SysLogService sysLogService;
-    //开始时间
-    private Date visitTime;
-    //访问的类
-    private Class clazz;
-    //访问的方法
-    private Method method;
+    public LogAopComponent(HttpServletRequest request, SysLogService sysLogService) {
+        this.request = request;
+        this.sysLogService = sysLogService;
+    }
 
     /**
      * 前置通知  主要是获取开始时间，执行的类是哪一个，执行的是哪一个方法
@@ -81,7 +94,7 @@ public class LogAopComponent {
             long time = System.currentTimeMillis() - visitTime.getTime();
             //获取访问的时长
 
-            String url = "";
+            String url;
             //获取url
             if (clazz != null && method != null && clazz != LogAopComponent.class) {
                 //1.获取类上的@RequestMapping("/orders")

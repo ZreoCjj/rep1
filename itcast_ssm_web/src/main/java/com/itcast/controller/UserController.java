@@ -26,10 +26,14 @@ import java.util.List;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+    private final UserService userService;
+    private final RoleService roleService;
+
     @Autowired
-    private UserService userService;
-    @Autowired
-    private RoleService roleService;
+    public UserController(UserService userService, RoleService roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
+    }
 
     @RequestMapping("/save")
     @Secured("ROLE_USER")
@@ -46,8 +50,8 @@ public class UserController {
     @RequestMapping("/findAll")
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_VIP')")
     public ModelAndView findAll(@RequestParam(name = "page", defaultValue = "1") Integer page,
-                          @RequestParam(name = "pageSize", defaultValue = "5")
-                                  Integer pageSize) throws SysException {
+                                @RequestParam(name = "pageSize", defaultValue = "5")
+                                        Integer pageSize) throws SysException {
         try {
             ModelAndView mv = new ModelAndView();
             List <UserInfo> list = userService.findAll(page, pageSize);
@@ -81,7 +85,7 @@ public class UserController {
         try {
             UserInfo user = userService.findById(id);
             List <Role> roleList = roleService.findOtherRoles(id);
-            ModelAndView mv = new  ModelAndView();
+            ModelAndView mv = new ModelAndView();
             mv.addObject("user", user);
             mv.addObject("roleList", roleList);
             mv.setViewName("user-role-add");
@@ -92,11 +96,12 @@ public class UserController {
         }
 
     }
-    @RequestMapping(value = "/addRoleToUser",method = RequestMethod.POST)
+
+    @RequestMapping(value = "/addRoleToUser", method = RequestMethod.POST)
     public String addRoleToUser(@RequestParam("ids") String[] ids, String userId)
             throws SysException {
         try {
-            userService.addRoleToUser(ids,userId);
+            userService.addRoleToUser(ids, userId);
             return "redirect:findAll";
         } catch (Exception e) {
             e.printStackTrace();

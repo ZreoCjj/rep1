@@ -20,8 +20,12 @@ import java.util.List;
 @Controller
 @RequestMapping("/sysLog")
 public class SysLogComponent {
+    private final SysLogService sysLogService;
+
     @Autowired
-    private SysLogService sysLogService;
+    public SysLogComponent(SysLogService sysLogService) {
+        this.sysLogService = sysLogService;
+    }
 
     @RequestMapping("/findAll")
     public ModelAndView findAll(@RequestParam(name = "page", defaultValue = "1") Integer page,

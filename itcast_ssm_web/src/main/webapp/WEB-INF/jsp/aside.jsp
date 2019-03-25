@@ -39,7 +39,7 @@
 					</a>
 					</li>
 					</security:authorize>
-					<security:authorize access="hasRole('USER')">
+					<security:authorize access="hasRole('ROLE_USER')">
 					<li id="system-setting1"><a
 						href="${pageContext.request.contextPath}/role/findAll"> <i
 							class="fa fa-circle-o"></i> 角色管理

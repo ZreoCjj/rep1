@@ -24,10 +24,14 @@ import java.util.List;
 @Controller
 @RequestMapping("/role")
 public class RoleController {
+    private final RoleService roleService;
+    private final PermissionService permissionService;
+
     @Autowired
-    private RoleService roleService;
-    @Autowired
-    private PermissionService permissionService;
+    public RoleController(RoleService roleService, PermissionService permissionService) {
+        this.roleService = roleService;
+        this.permissionService = permissionService;
+    }
 
     @RequestMapping("/findAll")
     public ModelAndView findAll(@RequestParam(name = "page", defaultValue = "1") Integer page,

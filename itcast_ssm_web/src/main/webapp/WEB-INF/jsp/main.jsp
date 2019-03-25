@@ -68,6 +68,7 @@
 			<img src="${pageContext.request.contextPath}/img/center.jpg"
 				width="100%" height="100%" />
 		</div>
+
 		<!-- 内容区域 /-->
 
 		<!-- 底部导航 -->
@@ -92,7 +93,8 @@
 	<script
 		src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.min.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/plugins/raphael/raphael-min.js"></script>
+		src="$
+		{pageContext.request.contextPath}/plugins/raphael/raphael-min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/plugins/morris/morris.min.js"></script>
 	<script

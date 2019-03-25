@@ -22,8 +22,12 @@ import java.util.List;
 @Controller
 @RequestMapping("/permission")
 public class PermissionController {
+    private final PermissionService permissionService;
+
     @Autowired
-    private PermissionService permissionService;
+    public PermissionController(PermissionService permissionService) {
+        this.permissionService = permissionService;
+    }
 
 
     @RequestMapping("/findAll")
